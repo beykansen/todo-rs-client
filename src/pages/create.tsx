@@ -4,7 +4,8 @@ import TodoApi from '../services/todoApi';
 import { CreateTodoRequest } from '../models/dtos';
 
 const Create = () => {
-  const todoApi = new TodoApi('https://todo-api.beykansen.com');
+  const baseUrl = process.env.REACT_APP_API_ROOT_URL as string;
+  const todoApi = new TodoApi(baseUrl);
   const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const request: CreateTodoRequest = {
@@ -19,16 +20,32 @@ const Create = () => {
       console.log(exception);
     }
     setCreateResult({
-      message: id === undefined ? 'an error occurred' : `todo created: ${id}`,
+      message:
+        id === undefined ? (
+          <p>An error occurred!</p>
+        ) : (
+          <>
+            ToDo Successfully Created!{' '}
+            <a target="_blank" href={`${baseUrl}/todo/${id}`} rel="noreferrer">
+              {id}
+            </a>
+          </>
+        ),
       variant: id === undefined ? 'danger' : 'success',
     });
+    reset();
   };
   const [todoName, setTodoName] = useState('');
   const [todoTags, setTodoTags] = useState('');
   const [createResult, setCreateResult] = useState<{
-    message: string;
+    message: React.ReactElement;
     variant: string;
   }>();
+
+  const reset = () => {
+    setTodoName('');
+    setTodoTags('');
+  };
 
   return (
     <>

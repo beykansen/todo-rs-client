@@ -15,13 +15,12 @@ export default function App() {
     <Router>
       <Container fluid={true}>
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">ToDo-RS</Navbar.Brand>
+          <Navbar.Brand as={NavLink} to="/">
+            ToDo-RS Web Client
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={NavLink} to="/">
-                Home
-              </Nav.Link>
               <Nav.Link as={NavLink} to="/create">
                 Add ToDo
               </Nav.Link>
