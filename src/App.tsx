@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from 'react-router-dom';
+import Create from './pages/create';
+import About from './pages/about';
+import Home from './pages/home';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Container fluid={true}>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">ToDo-RS</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link as={NavLink} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/create">
+                Add ToDo
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/about">
+                About
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Container>
+      <Switch>
+        <Container fluid={true}>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/create">
+            <Create />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Container>
+      </Switch>
+    </Router>
   );
 }
-
-export default App;
