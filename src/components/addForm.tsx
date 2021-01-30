@@ -55,7 +55,7 @@ const AddForm: React.FC<AddFormProps> = (props: AddFormProps) => {
     <>
       <Form onSubmit={onFormSubmit}>
         <Form.Row>
-          <Col xs="auto">
+          <Col xs="12" md="auto" className="mb-2">
             <Form.Control
               type="text"
               placeholder="Name"
@@ -66,7 +66,7 @@ const AddForm: React.FC<AddFormProps> = (props: AddFormProps) => {
               required
             />
           </Col>
-          <Col xs="auto">
+          <Col xs="12" md="auto" className="mb-2">
             <Form.Control
               type="text"
               placeholder="Tags Comma Seperated"
@@ -76,7 +76,7 @@ const AddForm: React.FC<AddFormProps> = (props: AddFormProps) => {
               }}
             />
           </Col>
-          <Col xs="auto">
+          <Col xs="12" md="auto">
             <Button variant="primary" type="submit" disabled={loading}>
               {loading ? 'Loading...' : 'Add'}
             </Button>

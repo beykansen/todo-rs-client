@@ -142,7 +142,7 @@ const Home = () => {
       setResultMessageWrapper({
         message: (
           <>
-            {id} Done status successfully changed to{' '}
+            {id} status successfully changed to{' '}
             {previousDoneState ? 'Undone' : 'Done'}
           </>
         ),
@@ -203,10 +203,10 @@ const Home = () => {
       </Row>
 
       <Row className="justify-content-md-end mt-3">
-        <Col>
+        <Col xs="12" md="10" className="mb-3">
           <AddForm callback={onAdd} />
         </Col>
-        <Col xs lg="2">
+        <Col xs="12" lg="2">
           <Form.Group controlId="doneFilter">
             <Form.Control
               as="select"
@@ -226,7 +226,7 @@ const Home = () => {
           {resultMessage?.message}
         </Alert>
       ) : null}
-      <Table striped bordered hover>
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>#ID</th>
