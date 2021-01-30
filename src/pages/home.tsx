@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import { Table, Button, Row, Col, Form, Alert } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { isNullOrUndefined } from '../utils/objectUtils';
 import TodoApi from '../services/todoApi';
 import Todo from '../models/todo';
@@ -244,24 +246,31 @@ const Home = () => {
                   <td>{row.id}</td>
                   <td>{row.name}</td>
                   <td>{row.tags.join(',')}</td>
-                  <td>
-                    {' '}
-                    <Button
-                      variant="primary"
-                      size="sm"
-                      className="mr-3"
-                      disabled={doneLoading}
+                  <td style={{ textAlign: 'center' }}>
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      style={
+                        row.done
+                          ? {
+                              color: 'green',
+                              cursor: 'pointer',
+                              fontSize: '1.5em',
+                            }
+                          : {
+                              color: 'gray',
+                              cursor: 'pointer',
+                              fontSize: '1.5em',
+                            }
+                      }
                       onClick={() => {
                         onToggleDone(row.id, row.done);
                       }}
-                    >
-                      {row.done ? 'Set Undone' : 'Set Done'}
-                    </Button>
+                    />
                   </td>
                   <td>
                     {moment(row.added_at).format('MMMM Do YYYY, h:mm:ss a')}{' '}
                   </td>
-                  <td>
+                  <td style={{ textAlign: 'center' }}>
                     <Button
                       variant="danger"
                       size="sm"
