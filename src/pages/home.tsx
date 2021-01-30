@@ -197,8 +197,8 @@ const Home = () => {
         <Alert variant="info">
           This site is for testing purposes of{' '}
           <a href="https://github.com/beykansen/todo-rs">todo rust api</a>,
-          hence all created ToDo items have very small amount TTL. Table show
-          only last 100 ToDo items.
+          hence all ToDo items have very small amount TTL. Table shows only last
+          100 ToDo items.
         </Alert>
       </Row>
 
