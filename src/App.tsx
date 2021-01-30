@@ -14,20 +14,20 @@ export default function App() {
       <Container fluid={true}>
         <Navbar bg="light" expand="lg">
           <Navbar.Brand as={NavLink} to="/">
-            ToDo-RS Web Client
+            Home
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={NavLink} to="/">
+              {/* <Nav.Link as={NavLink} to="/">
                 Home
-              </Nav.Link>
+              </Nav.Link> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>
       </Container>
       <Switch>
-        <Container fluid={true}>
+        <Container fluid={true} className="mt-3">
           <Route exact path="/">
             <Home />
           </Route>
