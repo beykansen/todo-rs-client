@@ -10,10 +10,10 @@ import AddForm from '../components/addForm';
 
 const Home = () => {
   const [tableLoading, setTableLoading] = useState<boolean>(false);
-  const [doneLoading, setDoneLoading] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [rows, setRows] = useState<Array<Todo>>([]);
   const [resultMessageShow, setResultMessageShow] = useState<boolean>(true);
+  const [selectedFilter, setSelectedFilter] = useState<string>();
   const [resultMessage, setResultMessage] = useState<
     | {
         message: React.ReactElement;
@@ -43,6 +43,8 @@ const Home = () => {
           });
         }
         setRows(todos);
+      } else {
+        setRows([]);
       }
     } catch (err) {
       if (!isNullOrUndefined(err.response)) {
@@ -131,7 +133,6 @@ const Home = () => {
   };
 
   const onToggleDone = async (id: string, previousDoneState: boolean) => {
-    setDoneLoading(true);
     try {
       let result = await todoApi.ToggleDoneAsync(id);
       if (!result?.success) return;
@@ -140,7 +141,6 @@ const Home = () => {
       if (index === -1) return;
       todos[index].done = !previousDoneState;
       setRows(todos);
-
       setResultMessageWrapper({
         message: (
           <>
@@ -161,19 +161,21 @@ const Home = () => {
         console.log(err);
       }
     }
-    setDoneLoading(false);
   };
 
   const onFilterChange = async (filter: string) => {
     let done: boolean | undefined = undefined;
     switch (filter) {
       case 'done':
+        setSelectedFilter('done');
         done = true;
         break;
       case 'undone':
+        setSelectedFilter('undone');
         done = false;
         break;
       default:
+        setSelectedFilter('all');
     }
     await getTodos(null, done);
   };
@@ -215,6 +217,7 @@ const Home = () => {
               onChange={(e) => {
                 onFilterChange(e.target.value);
               }}
+              value={selectedFilter !== '' ? selectedFilter : 'all'}
             >
               <option value="all">All</option>
               <option value="done">Only Done</option>
@@ -242,7 +245,13 @@ const Home = () => {
         <tbody>
           {!tableLoading
             ? rows.map((row) => (
-                <tr key={row.id}>
+                <tr
+                  key={row.id}
+                  hidden={
+                    (selectedFilter === 'done' && !row.done) ||
+                    (selectedFilter === 'undone' && row.done)
+                  }
+                >
                   <td>{row.id}</td>
                   <td>{row.name}</td>
                   <td>{row.tags.join(',')}</td>
