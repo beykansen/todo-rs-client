@@ -74,13 +74,13 @@ const Home = () => {
         };
         setRows((oldRows) => [todo, ...oldRows]);
         setResultMessageWrapper({
-          message: <>ToDo successfully added</>,
+          message: <>{todo.name} successfully added</>,
           variant: 'success',
         });
       }
     } catch (err) {
       setResultMessageWrapper({
-        message: <>An error occurred while adding ToDo</>,
+        message: <>An error occurred while adding</>,
         variant: 'danger',
       });
       if (!isNullOrUndefined(err.response)) {
@@ -111,12 +111,12 @@ const Home = () => {
       setRows(todos);
 
       setResultMessageWrapper({
-        message: <>ToDo successfully deleted</>,
+        message: <>{id} successfully deleted</>,
         variant: 'success',
       });
     } catch (err) {
       setResultMessageWrapper({
-        message: <>An error occurred while deleting ToDo</>,
+        message: <>An error occurred while deleting {id}</>,
         variant: 'danger',
       });
       if (!isNullOrUndefined(err.response)) {
@@ -142,7 +142,7 @@ const Home = () => {
       setResultMessageWrapper({
         message: (
           <>
-            ToDo Done status successfully changed to{' '}
+            {id} Done status successfully changed to{' '}
             {previousDoneState ? 'Undone' : 'Done'}
           </>
         ),
@@ -150,7 +150,7 @@ const Home = () => {
       });
     } catch (err) {
       setResultMessageWrapper({
-        message: <>An error occurred while changing ToDo done status</>,
+        message: <>An error occurred while changing {id} done status</>,
         variant: 'danger',
       });
       if (!isNullOrUndefined(err.response)) {
@@ -235,11 +235,8 @@ const Home = () => {
                   <td>{row.id}</td>
                   <td>{row.name}</td>
                   <td>{row.tags.join(',')}</td>
-                  <td>{row.done.toString()}</td>
                   <td>
-                    {moment(row.added_at).format('MMMM Do YYYY, h:mm:ss a')}{' '}
-                  </td>
-                  <td>
+                    {' '}
                     <Button
                       variant="primary"
                       size="sm"
@@ -251,6 +248,11 @@ const Home = () => {
                     >
                       {row.done ? 'Set Undone' : 'Set Done'}
                     </Button>
+                  </td>
+                  <td>
+                    {moment(row.added_at).format('MMMM Do YYYY, h:mm:ss a')}{' '}
+                  </td>
+                  <td>
                     <Button
                       variant="danger"
                       size="sm"

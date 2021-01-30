@@ -21,6 +21,11 @@ const AddForm: React.FC<AddFormProps> = (props: AddFormProps) => {
   const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
+    if (todoName === '') {
+      setLoading(false);
+      return;
+    }
+
     const request: CreateTodoRequest = {
       name: todoName,
       tags: todoTags.split(','),
@@ -58,6 +63,7 @@ const AddForm: React.FC<AddFormProps> = (props: AddFormProps) => {
               onChange={(e) => {
                 setTodoName(e.target.value);
               }}
+              required
             />
           </Col>
           <Col xs="auto">

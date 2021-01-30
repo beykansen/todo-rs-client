@@ -6,7 +6,6 @@ import {
   Route,
   NavLink,
 } from 'react-router-dom';
-import About from './pages/about';
 import Home from './pages/home';
 
 export default function App() {
@@ -20,8 +19,8 @@ export default function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={NavLink} to="/about">
-                About
+              <Nav.Link as={NavLink} to="/">
+                Home
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -29,9 +28,6 @@ export default function App() {
       </Container>
       <Switch>
         <Container fluid={true}>
-          <Route path="/about">
-            <About />
-          </Route>
           <Route exact path="/">
             <Home />
           </Route>
